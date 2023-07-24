@@ -33,7 +33,6 @@ module.exports = function (eleventyConfig) {
   });
 
   // Copy Image Folder to /_site
-  eleventyConfig.addPassthroughCopy("./src/static/css");
   eleventyConfig.addPassthroughCopy("./src/static/img");
 
   // Copy favicon to route of /_site
@@ -75,8 +74,11 @@ module.exports = function (eleventyConfig) {
       sourcemap: true,
       // outdir: "_site/static/js",
       outfile: "_site/static/js/index.min.js",
+      target: ["es2015"],
     });
   });
+
+  eleventyConfig.addWatchTarget("./src/static/js/");
 
   // Let Eleventy transform HTML files as nunjucks
   // So that we can use .html instead of .njk
