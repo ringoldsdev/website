@@ -17,11 +17,38 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@master
-      - name: Build
-        uses: TartanLlama/actions-eleventy@master
+      
+      - uses: actions/setup-node@v3
         with:
-          args: --output _dist
-          install_dependencies: true
+          node-version: 18
+          
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+        
+      - name: Generate static site
+        run: pnpm build
+        
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
