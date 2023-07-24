@@ -10,6 +10,7 @@
   "devDependencies": {
     "@11ty/eleventy": "2.0.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "5.0.0",
+    "@jamshop/eleventy-plugin-mdx": "^0.0.17",
     "@tailwindcss/typography": "0.5.9",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "alpinejs": "3.12.3",
