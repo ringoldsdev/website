@@ -14,7 +14,7 @@ h3 {
 
 /* Syntax Highlighting*/
 
-body :not(pre) > code[class*="language-"],
-body pre[class*="language-"] {
+body :not(pre) > code[class*='language-'],
+body pre[class*='language-'] {
   @apply bg-gray-800;
 }
